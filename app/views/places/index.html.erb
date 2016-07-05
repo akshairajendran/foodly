@@ -5,3 +5,6 @@
     <p><%= place.description %></p><br />
   </div>
 <% end %>
+<div class='page-numbers'>
+  <%= will_paginate @places, :page_links => false %>
+</div>
