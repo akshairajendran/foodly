@@ -3,4 +3,6 @@ class Place < ActiveRecord::Base
   validates :name, presence: true, length: { minimum: 3, too_short: "Please enter at least 3 characters"}
   validates :address, presence: true
   validates :description, presence: true
+  geocoded_by :address
+  after_validation :geocode
 end
