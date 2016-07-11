@@ -33,10 +33,10 @@
   <div class='photos'>
     <h1>Photos</h1>
     <% @place.photos.each do |photo| %>
-      <div>
-        <blockquote>
-          <%= photo.caption %>
-        </blockquote>
+      <div class='col-xs-12 col-sm-6'>
+        <%= image_tag photo.picture %>
+        <br />
+        <%= photo.caption %>
       </div>
     <% end %>
   </div>
@@ -45,6 +45,9 @@
 
   <div class="pull-right">
     <% if current_user && current_user == @place.user %>
+      <button class="btn btn-primary btn-primary" data-toggle="modal" data-target="#myModalPhoto">
+        Add a photo
+      </button>
       <%= link_to 'Edit', edit_place_path(@place), class: 'btn btn-primary' %>
       <%= link_to 'Delete', place_path(@place), method: :delete, data: {confirm:'Are you sure you want to delete this?'}, class: 'btn btn-danger' %>
     <% end %>
@@ -83,13 +86,6 @@
     <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
       Add a comment
     </button>
-
-    <!-- Button trigger modal -->
-    <% if current_user && current_user == @place.user %>
-      <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalPhoto">
-        Add a photo
-      </button>
-    <% end %>
   </div>
 
 </div>
@@ -104,6 +100,7 @@
       </div>
      <%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
         <div class="modal-body">
+          <%= f.input :picture %>
           <%= f.input :caption %>
         </div>
         <div class="modal-footer">
